@@ -1,10 +1,10 @@
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:jewish_app/localization/app_localization.dart';
-export 'core/theme/alta_custom_text_style.dart';
 export 'core/theme/app_decoration.dart';
+export 'core/theme/custom_text_styles.dart';
+export 'core/theme/theme_globals.dart';
 export 'core/ui/widgets/custom_image_view.dart';
 export 'core/constants/app/app_constants.dart';
-export 'core/theme/alta_theme_helper.dart';
 export 'core/theme/custom_button_style.dart';
 export 'core/navigation/navigation_service.dart';
 export 'core/navigation/nav.dart';

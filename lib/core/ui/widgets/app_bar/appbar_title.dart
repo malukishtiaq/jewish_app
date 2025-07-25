@@ -23,9 +23,7 @@ class AppbarTitle extends StatelessWidget {
         },
         child: Text(
           text,
-          style: CustomTextStyles.titleLargeMontserrat.copyWith(
-            color: theme.colorScheme.onPrimary.withOpacity(1),
-          ),
+          style: CustomTextStyles.titleLargeMontserrat(context),
         ),
       ),
     );

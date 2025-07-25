@@ -9,6 +9,7 @@ import 'package:jewish_app/core/common/app_options/app_options.dart';
 import 'package:jewish_app/core/common/local_storage.dart';
 import 'package:jewish_app/core/constants/enums/system_type.dart';
 import 'package:jewish_app/core/localization/flutter_localization.dart';
+import 'package:jewish_app/core/theme/app_theme.dart';
 import 'package:jewish_app/di/service_locator.dart';
 
 import '../../export_files.dart';
@@ -54,8 +55,8 @@ class AppConfig {
   AppOptions get appOptions => _appOptions;
 
   ThemeData get themeData => themeMode == ThemeMode.light
-      ? ThemeHelper().themeData()
-      : ThemeHelper().themeData();
+      ? AppTheme.lightThemeData
+      : AppTheme.darkThemeData;
 
   bool isMobile() {
     try {
@@ -125,7 +126,9 @@ class AppConfig {
     FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(
       format: ImageByteFormat.png,
-    ))?.buffer.asUint8List();
+    ))
+        ?.buffer
+        .asUint8List();
   }
 
   late String mapStyle;

@@ -154,7 +154,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       );
   InputDecoration get decoration => InputDecoration(
         hintText: widget.hintText ?? "",
-        hintStyle: widget.hintStyle ?? CustomTextStyles.bodyMediumOnPrimary,
+        hintStyle:
+            widget.hintStyle ?? CustomTextStyles.bodyMediumOnPrimary(context),
         prefixIcon: widget.prefix,
         prefixIconConstraints: widget.prefixConstraints,
         suffixIcon: widget.suffix,

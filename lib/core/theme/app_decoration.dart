@@ -4,13 +4,13 @@ import '../../export_files.dart';
 class AppDecoration {
   // Fill decorations
   static BoxDecoration get fillGray => BoxDecoration(
-        color: appTheme.gray90003,
+        color: AppThemeColors.gray90003,
       );
   static BoxDecoration get fillGray900 => BoxDecoration(
-        color: appTheme.gray900,
+        color: AppThemeColors.gray900,
       );
   static BoxDecoration get fillIndigo => BoxDecoration(
-        color: appTheme.indigo900,
+        color: AppThemeColors.indigo900,
       );
   static BoxDecoration get fillOnPrimary => BoxDecoration(
         color: theme.colorScheme.onPrimary.withOpacity(1),
@@ -21,21 +21,21 @@ class AppDecoration {
           begin: const Alignment(1, 0),
           end: const Alignment(0, 1),
           colors: [
-            appTheme.indigo900.withOpacity(0),
-            appTheme.indigo900,
-            appTheme.gray90003
+            AppThemeColors.indigo900.withOpacity(0),
+            AppThemeColors.indigo900,
+            AppThemeColors.gray90003
           ],
         ),
       );
 // Outline decorations
   static BoxDecoration get outline => BoxDecoration(
-        color: appTheme.indigo90001,
+        color: AppThemeColors.indigo90001,
       );
   static BoxDecoration get outlineBlack9003f => BoxDecoration(
-        color: appTheme.lightBlue800,
+        color: AppThemeColors.lightBlue800,
         boxShadow: [
           BoxShadow(
-            color: appTheme.black9003f,
+            color: AppThemeColors.black9003f,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: const Offset(
@@ -46,10 +46,10 @@ class AppDecoration {
         ],
       );
   static BoxDecoration get outlineBlack9003f1 => BoxDecoration(
-        color: appTheme.gray900,
+        color: AppThemeColors.gray900,
         boxShadow: [
           BoxShadow(
-            color: appTheme.black9003f,
+            color: AppThemeColors.black9003f,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: const Offset(
@@ -60,10 +60,10 @@ class AppDecoration {
         ],
       );
   static BoxDecoration get outlineBlack9003f2 => BoxDecoration(
-        color: appTheme.lightBlue800,
+        color: AppThemeColors.lightBlue800,
         boxShadow: [
           BoxShadow(
-            color: appTheme.black9003f.withOpacity(0.14),
+            color: AppThemeColors.black9003f.withOpacity(0.14),
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: const Offset(
@@ -76,7 +76,7 @@ class AppDecoration {
   static BoxDecoration get outlineBlackF => const BoxDecoration();
   static BoxDecoration get outlineLightBlue => BoxDecoration(
         border: Border.all(
-          color: appTheme.lightBlue800,
+          color: AppThemeColors.lightBlue800,
           width: 1.h,
         ),
       );

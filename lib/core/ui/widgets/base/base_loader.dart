@@ -20,7 +20,8 @@ class BaseLoader extends StatelessWidget {
         Positioned.fill(child: child),
         if (isLoading) ...[
           Positioned.fill(
-            child: Container(color: appTheme.lightBlue800.withOpacity(0.25)),
+            child:
+                Container(color: AppThemeColors.lightBlue800.withOpacity(0.25)),
           ),
           Positioned.fill(
             child: Center(

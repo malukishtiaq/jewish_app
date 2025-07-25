@@ -1,0 +1,6 @@
+# Cursor AI Configuration File
+
+# This file tells Cursor to use the specified markdown file as its rulebook
+# for all AI code generation within this repository.
+rules:
+  - file: cursor_rules.md
