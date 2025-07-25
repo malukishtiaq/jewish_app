@@ -5,6 +5,7 @@ export 'core/theme/custom_text_styles.dart';
 export 'core/theme/theme_globals.dart';
 export 'core/ui/widgets/custom_image_view.dart';
 export 'core/constants/app/app_constants.dart';
+export 'core/constants/judaism_assets.dart';
 export 'core/theme/custom_button_style.dart';
 export 'core/navigation/navigation_service.dart';
 export 'core/navigation/nav.dart';

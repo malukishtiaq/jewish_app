@@ -1,3 +1,5 @@
+import 'judaism_assets.dart';
+
 /// Centralized asset management for the app
 /// This file contains all image, icon, and asset paths used throughout the application
 ///
@@ -5,6 +7,7 @@
 /// - Images: AppAssets.images.logoWithBg
 /// - Icons: AppAssets.icons.home
 /// - Animations: AppAssets.animations.loading
+/// - Judaism: AppAssets.judaism.volume.volumeUp
 ///
 /// Benefits:
 /// - Easy to change asset paths globally
@@ -35,6 +38,9 @@ class AppAssets {
 
   /// OTP and verification assets
   static const AppOTPAssets otp = AppOTPAssets._();
+
+  /// Judaism-related assets
+  static const JudaismAssets judaism = JudaismAssets();
 }
 
 /// Image asset paths
