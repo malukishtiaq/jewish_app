@@ -3,7 +3,8 @@ import 'package:jewish_app/core/common/utils/validation_functions.dart';
 import 'package:jewish_app/features/account/presentation/state_m/account/account_cubit.dart';
 import 'package:jewish_app/export_files.dart';
 import 'package:jewish_app/core/ui/widgets/custom_text_form_field.dart';
-import 'package:jewish_app/features/account/data/request/param/login_param.dart';
+import 'package:jewish_app/features/account/presentation/screen/login/register_screen.dart';
+import 'package:jewish_app/features/home/presentation/screen/home_screen.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -146,10 +147,11 @@ class LoginForm extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
-          cubit.login(
-            LoginParam(
-              email: cubit.usernameController.text,
-            ),
+          // For now, navigate to home to mimic success flow
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomeScreen.routeName,
+            (route) => false,
           );
         },
         style: CustomButtonStyles.fillPurple,
@@ -207,7 +209,7 @@ class LoginForm extends StatelessWidget {
         AppSpaces.hSM,
         GestureDetector(
           onTap: () {
-            // Navigate to sign up screen
+            Navigator.pushNamed(context, RegisterScreen.routeName);
           },
           child: AppBody.large(
             'Sign Up',

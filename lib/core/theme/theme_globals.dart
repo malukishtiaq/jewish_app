@@ -15,6 +15,11 @@ class AppThemeColors {
   static const Color redA700 = Color(0xFFD50000);
   static const Color black9003f = Color(0x3F000000);
   static const Color dividerBlue = Color(0xFFE9EFFF);
+  // Brand palette
+  static const Color brandPurple = Color(0xFF8A5694);
+  static const Color brandOrange = Color(0xFFF2A41E);
+  static const Color brandOrangeAlt = Color(0xFFF47C26);
+  static const Color textMuted = Color(0xFF6C7C89);
 }
 
 // Global theme access (simplified version)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewish_app/core/common/utils/size_utils.dart';
+import 'package:jewish_app/core/theme/theme_globals.dart';
 
 /// A collection of pre-defined text styles for customizing text appearance,
 /// categorized by different font families and weights.
@@ -107,7 +108,7 @@ class CustomTextStyles {
       Theme.of(context).textTheme.titleLarge!.copyWith(
             fontFamily: 'Taz',
             fontSize: 24,
-            color: const Color(0xFF8A5694),
+            color: AppThemeColors.brandPurple,
             height: 1,
           );
 
@@ -209,8 +210,45 @@ class CustomTextStyles {
       Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontFamily: 'Montserrat',
             fontSize: 14,
-            color: const Color(0xFF8A5694),
+            color: AppThemeColors.brandPurple,
             fontStyle: FontStyle.normal,
+            height: 1,
+          );
+
+  // Settings-specific
+  static TextStyle settingsTitle(BuildContext context) =>
+      welcomeBackTaz(context)
+          .copyWith(fontSize: 23, color: AppThemeColors.brandPurple);
+
+  static TextStyle settingsLabelTaz(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Taz',
+            fontSize: 14,
+            color: AppThemeColors.brandPurple,
+            height: 1,
+          );
+
+  static TextStyle settingsValueFutura(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Futura Std',
+            fontSize: 16,
+            color: const Color(0xFF62606E),
+            height: 1,
+          );
+
+  static TextStyle sectionHeader(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Futura Std',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          );
+
+  static TextStyle libraryItem(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Futura Std',
+            fontSize: 16,
+            color: AppThemeColors.textMuted,
             height: 1,
           );
 }

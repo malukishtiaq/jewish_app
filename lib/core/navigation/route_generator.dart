@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import '../../di/service_locator.dart';
 import '../../features/account/presentation/screen/login/login_screen.dart';
+import '../../features/account/presentation/screen/login/register_screen.dart';
+import '../../features/home/presentation/screen/home_screen.dart';
 import '../constants/enums/route_type.dart';
 import '../ui/screens/base_screen.dart';
 import 'animations/animated_route.dart';
@@ -70,6 +72,18 @@ class NavigationRoute {
         return _getRoute<LoginScreenParam>(
           settings: settings,
           createScreen: (param) => LoginScreen(param: param),
+        );
+
+      case RegisterScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const RegisterScreen(),
+          settings: settings,
+        );
+
+      case HomeScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+          settings: settings,
         );
 
       default:
