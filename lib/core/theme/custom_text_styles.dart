@@ -93,6 +93,24 @@ class CustomTextStyles {
       .titleLarge!
       .copyWith(fontWeight: FontWeight.w700);
 
+  /// Figma: Welcome Back! -> Montserrat, size 24, weight 700, color #6F3D7C
+  static TextStyle titleLargeWelcomeBack(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge!.copyWith(
+            fontFamily: 'Montserrat',
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF6F3D7C),
+          );
+
+  /// Welcome Back (Taz, 24, color #8A5694)
+  static TextStyle welcomeBackTaz(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge!.copyWith(
+            fontFamily: 'Taz',
+            fontSize: 24,
+            color: const Color(0xFF8A5694),
+            height: 1,
+          );
+
   static TextStyle titleLargeMontserrat(BuildContext context) =>
       Theme.of(context)
           .textTheme
@@ -165,5 +183,34 @@ class CustomTextStyles {
       Theme.of(context).textTheme.titleSmall!.copyWith(
             fontFamily: 'Montserrat',
             color: Colors.grey[900],
+          );
+
+  /// Field label (e.g., Email/Password) per Figma: size 13, weight 700
+  static TextStyle fieldLabel13Bold(BuildContext context) =>
+      Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontFamily: 'Montserrat',
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF252525),
+          );
+
+  /// Button text: Sign In (Taz, 16, white)
+  static TextStyle buttonSignIn(BuildContext context) =>
+      Theme.of(context).textTheme.labelLarge!.copyWith(
+            fontFamily: 'Taz',
+            fontSize: 16,
+            color: Colors.white,
+            height: 1,
+            fontWeight: FontWeight.w600,
+          );
+
+  /// Forgot Password link: non-italic, 14, color #8A5694
+  static TextStyle forgotPasswordLink(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontFamily: 'Montserrat',
+            fontSize: 14,
+            color: const Color(0xFF8A5694),
+            fontStyle: FontStyle.normal,
+            height: 1,
           );
 }

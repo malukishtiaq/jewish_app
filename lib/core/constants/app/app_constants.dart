@@ -6,7 +6,7 @@ class AppConstants {
 
   static String imagePath = 'assets/images';
   static String gifPath = 'assets/gif';
-  static String camalotPath = 'assets/camalot';
+  static String camalotPath = 'assets/images/png';
   static String splashAndroidImages = '$imagePath/img_group_6836.svg';
   static String imgSplashBackground = "$imagePath/splash_background.png";
   static String imgDownloaderLa712459 =
@@ -274,8 +274,8 @@ class AppConstants {
 
   /// These constants are for camalot solution
   static String backgroundPicture = "assets/register_bg.png";
-  static String arrowBack = "assets/camalot/back_icon.png";
-  static String logo = "assets/camalot/logo.png";
+  static String arrowBack = "$imagePath/img_arrow_left.svg";
+  static String logo = "$imagePath/png/app_logo.png";
 
-  static String camalotLogo = '$camalotPath/logo_with_bg.png';
+  static String camalotLogo = '$imagePath/png/app_logo.png';
 }

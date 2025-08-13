@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jewish_app/core/theme/theme_globals.dart';
 
 class AppHeadline extends StatelessWidget {
   const AppHeadline.large(
@@ -120,6 +121,37 @@ class AppBody extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
+    );
+  }
+}
+
+class AppDivider extends StatelessWidget {
+  AppDivider.standard({super.key})
+      : color = AppThemeColors.dividerBlue,
+        thickness = 1,
+        indent = 0,
+        endIndent = 0;
+
+  const AppDivider.custom(
+      {super.key,
+      required this.color,
+      this.thickness = 1,
+      this.indent = 0,
+      this.endIndent = 0});
+
+  final Color color;
+  final double thickness;
+  final double indent;
+  final double endIndent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: color,
+      thickness: thickness,
+      indent: indent,
+      endIndent: endIndent,
+      height: thickness,
     );
   }
 }

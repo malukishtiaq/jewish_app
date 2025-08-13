@@ -31,7 +31,7 @@ class BaseLoader extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(40.0),
                     child: Image.asset(
-                      'assets/camalot/logo_with_bg.png',
+                      'assets/images/png/app_logo.png',
                       height: 100,
                       width: 100,
                     ),

@@ -31,6 +31,10 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.onFieldSubmitted,
+    this.fieldLabel,
+    this.fieldLabelStyle,
+    this.leadingIcon,
+    this.leadingIconPadding,
   });
 
   final Alignment? alignment;
@@ -87,6 +91,18 @@ class CustomTextFormField extends StatefulWidget {
 
   final void Function(dynamic)? onFieldSubmitted;
 
+  /// Optional label shown INSIDE the field container (Figma spec)
+  final String? fieldLabel;
+
+  /// Optional style for [fieldLabel]
+  final TextStyle? fieldLabelStyle;
+
+  /// Optional leading icon shown before the input value (inside the box)
+  final Widget? leadingIcon;
+
+  /// Padding around [leadingIcon] when provided (default: EdgeInsets.symmetric(horizontal: 10))
+  final EdgeInsets? leadingIconPadding;
+
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -108,11 +124,118 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   Widget textFormFieldWidget(BuildContext context) => Container(
         width: widget.width ?? double.maxFinite,
-        decoration: widget.boxDecoration,
+        decoration: widget.fieldLabel != null || widget.leadingIcon != null
+            ? null
+            : widget.boxDecoration,
         child: FormField<String>(
           initialValue: widget.controller?.text ?? '',
           validator: widget.validator,
           builder: (FormFieldState<String> state) {
+            final bool useLabeledBox =
+                widget.fieldLabel != null || widget.leadingIcon != null;
+
+            if (useLabeledBox) {
+              final BoxDecoration effectiveDecoration = widget.boxDecoration ??
+                  BoxDecoration(
+                    color: widget.fillColor ?? Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: const Color(0xFF8A5694),
+                      width: 1,
+                    ),
+                  );
+
+              return Container(
+                decoration: effectiveDecoration,
+                constraints: const BoxConstraints(minHeight: 53),
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (widget.fieldLabel != null)
+                        Text(
+                          widget.fieldLabel!,
+                          style: widget.fieldLabelStyle ??
+                              CustomTextStyles.fieldLabel13Bold(context),
+                        ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          if (widget.leadingIcon != null) widget.leadingIcon!,
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: TextFormField(
+                              scrollPadding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
+                              controller: widget.controller,
+                              focusNode: widget.focusNode,
+                              onTapOutside: (event) {
+                                if (widget.focusNode != null) {
+                                  widget.focusNode?.unfocus();
+                                  state.validate();
+                                } else {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                }
+                              },
+                              autofocus: widget.autofocus!,
+                              style: widget.textStyle ??
+                                  const TextStyle(color: Colors.black),
+                              obscureText: widget.obscureText!,
+                              readOnly: widget.readOnly!,
+                              textAlignVertical: TextAlignVertical.center,
+                              onTap: () {
+                                state.reset();
+                                widget.onTap?.call();
+                              },
+                              onChanged: (value) {
+                                state.didChange(value);
+                                widget.onChanged?.call(value);
+                              },
+                              onFieldSubmitted: widget.onFieldSubmitted,
+                              textInputAction: widget.textInputAction,
+                              keyboardType: widget.textInputType,
+                              maxLines: widget.maxLines ?? 1,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.zero,
+                              ).copyWith(
+                                hintText: widget.hintText ?? "",
+                                hintStyle: widget.hintStyle ??
+                                    CustomTextStyles.bodyMediumOnPrimary(
+                                        context),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (state.errorText != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2.0),
+                          child: Text(
+                            state.errorText!,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10.fSize,
+                              height: 0.5,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }
+
             return TextFormField(
               scrollPadding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),

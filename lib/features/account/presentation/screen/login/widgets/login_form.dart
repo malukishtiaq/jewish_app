@@ -18,72 +18,186 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           _buildEmailInput(context, cubit),
+          AppSpaces.md,
+          _buildPasswordInput(context, cubit),
           AppSpaces.lg,
           _buildLoginButton(context, cubit),
-          AppSpaces.xl,
-          _buildSignInWithText(context),
-          AppSpaces.lg,
+          AppSpaces.md2,
+          Text(
+            'Forgot Password?',
+            textAlign: TextAlign.center,
+            style: CustomTextStyles.forgotPasswordLink(context),
+          ),
+          AppSpaces.sm,
+          _buildSocialLoginSection(context),
+          AppSpaces.sm,
           _buildSignUpSection(context),
+          Center(
+            child: CustomImageView(
+              width: 238,
+              height: 100,
+              imagePath: JudaismAssets.ui.sponsoredImage,
+              fit: BoxFit.contain,
+            ),
+          ),
+          10.verticalSpace,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13),
+            child: Text(
+              "The Alan and Mindy Peyser in honor of Paul Peyser - Pinchas ben David a'h",
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0xFF6C7C89),
+                fontSize: 12,
+                fontFamily: 'Inter',
+                height: 1,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildEmailInput(BuildContext context, AccountCubit cubit) {
-    return SizedBox(
-      height: AppSpacing.inputHeight,
-      child: CustomTextFormField(
-        controller: cubit.usernameController,
-        hintText: "lbl_username_email".tr,
-        textInputType: TextInputType.emailAddress,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.sm,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: SizedBox(
+        width: 343,
+        child: CustomTextFormField(
+          controller: cubit.usernameController,
+          hintText: 'email@gmail.com',
+          textInputType: TextInputType.emailAddress,
+          fieldLabel: 'Email',
+          leadingIcon:
+              Image.asset(JudaismAssets.ui.iconEmail, width: 16, height: 16),
+          leadingIconPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+          textStyle: context.textTheme.bodyMedium?.copyWith(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: const Color(0xFF252525),
+          ),
+          hintStyle: context.textTheme.bodyMedium?.copyWith(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: const Color(0x80252525),
+          ),
+          validator: (value) {
+            if (value == null || (!isValidEmail(value, isRequired: true))) {
+              return 'err_msg_please_enter_valid_email'.tr;
+            }
+            return null;
+          },
         ),
-        textStyle: context.textTheme.bodyMedium?.copyWith(
-          fontFamily: 'Inter',
-          fontSize: 14,
-          color: const Color(0xFF252525),
+      ),
+    );
+  }
+
+  Widget _buildPasswordInput(BuildContext context, AccountCubit cubit) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: SizedBox(
+        width: 343,
+        child: CustomTextFormField(
+          controller: cubit.passwordController,
+          hintText: '******',
+          obscureText: true,
+          fieldLabel: 'Password',
+          leadingIcon: const Icon(Icons.lock_outline,
+              size: 18, color: Color(0xFF8A5694)),
+          leadingIconPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+          textStyle: context.textTheme.bodyMedium?.copyWith(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: const Color(0xFF252525),
+          ),
+          hintStyle: context.textTheme.bodyMedium?.copyWith(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: const Color(0x80252525),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'err_msg_please_enter_valid_password'.tr;
+            }
+            return null;
+          },
         ),
-        hintStyle: context.textTheme.bodyMedium?.copyWith(
-          fontFamily: 'Inter',
-          fontSize: 14,
-          color: const Color(0x80252525),
-        ),
-        validator: (value) {
-          if (value == null || (!isValidEmail(value, isRequired: true))) {
-            return "err_msg_please_enter_valid_email".tr;
-          }
-          return null;
-        },
       ),
     );
   }
 
   Widget _buildLoginButton(BuildContext context, AccountCubit cubit) {
-    return SizedBox(
-      height: AppSpacing.buttonHeight,
-      width: double.infinity,
+    return Container(
+      width: 304,
+      height: 44,
+      margin: AppSpacing.horizontalXL,
+      decoration: ShapeDecoration(
+        color: const Color(0xFF8A5694),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        shadows: const [
+          BoxShadow(
+            color: Color(0xFF74C6C4),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+            spreadRadius: 0,
+          )
+        ],
+      ),
       child: ElevatedButton(
         onPressed: () {
-          cubit.login(LoginParam(email: cubit.usernameController.text));
+          cubit.login(
+            LoginParam(
+              email: cubit.usernameController.text,
+            ),
+          );
         },
         style: CustomButtonStyles.fillPurple,
-        child: AppBody.large("lbl_login".tr, color: Colors.white),
+        child: Text(
+          'Sign In',
+          textAlign: TextAlign.center,
+          style: CustomTextStyles.buttonSignIn(context),
+        ),
       ),
     );
   }
 
-  Widget _buildSignInWithText(BuildContext context) {
-    return AppBody.medium(
-      "msg_sign_in_with_account".tr,
-      color: context.colorScheme.onSurface.withValues(alpha: 0.5),
-      textAlign: TextAlign.center,
+  // Removed unused sign-in text helper (integrated into social login section)
+
+  Widget _buildSocialLoginSection(BuildContext context) {
+    return Column(
+      children: [
+        AppDivider.standard(),
+        AppSpaces.xs,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                // TODO: Implement Facebook login
+              },
+              icon:
+                  const Icon(Icons.facebook_rounded, color: Color(0xFF1877F2)),
+              iconSize: 40,
+            ),
+            AppSpaces.sm,
+            IconButton(
+              onPressed: () {
+                // TODO: Implement Google login
+              },
+              icon: const Icon(Icons.mail, color: Color(0xFFDB4437)),
+              iconSize: 40,
+            ),
+          ],
+        ),
+        AppSpaces.xs,
+        AppDivider.standard(),
+      ],
     );
   }
 
   Widget _buildSignUpSection(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AppBody.medium(

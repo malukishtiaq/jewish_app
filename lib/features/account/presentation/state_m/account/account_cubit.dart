@@ -64,6 +64,8 @@ class AccountCubit extends Cubit<AccountState> {
   final usernameFocusNode = FocusNode();
   final usernameKey = GlobalKey<FormFieldState<String>>();
 
+  final passwordController = TextEditingController();
+
   bool _isNotificationEnabled = false;
   bool get isNotificationEnabled => _isNotificationEnabled;
   set isNotificationEnabled(bool value) {

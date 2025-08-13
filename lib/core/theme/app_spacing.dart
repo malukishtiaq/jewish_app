@@ -9,6 +9,7 @@ class AppSpacing {
   static double get xs => 4.h;
   static double get sm => 8.h;
   static double get md => 16.h;
+  static double get md2 => 19.h;
   static double get lg => 24.h;
   static double get xl => 32.h;
   static double get xxl => 48.h;
@@ -26,18 +27,21 @@ class AppSpacing {
   static EdgeInsets get paddingXS => EdgeInsets.all(xs);
   static EdgeInsets get paddingSM => EdgeInsets.all(sm);
   static EdgeInsets get paddingMD => EdgeInsets.all(md);
+  static EdgeInsets get paddingMD2 => EdgeInsets.all(md2);
   static EdgeInsets get paddingLG => EdgeInsets.all(lg);
   static EdgeInsets get paddingXL => EdgeInsets.all(xl);
 
   static EdgeInsets get horizontalXS => EdgeInsets.symmetric(horizontal: xs);
   static EdgeInsets get horizontalSM => EdgeInsets.symmetric(horizontal: sm);
   static EdgeInsets get horizontalMD => EdgeInsets.symmetric(horizontal: md);
+  static EdgeInsets get horizontalMD2 => EdgeInsets.symmetric(horizontal: md2);
   static EdgeInsets get horizontalLG => EdgeInsets.symmetric(horizontal: lg);
   static EdgeInsets get horizontalXL => EdgeInsets.symmetric(horizontal: xl);
 
   static EdgeInsets get verticalXS => EdgeInsets.symmetric(vertical: xs);
   static EdgeInsets get verticalSM => EdgeInsets.symmetric(vertical: sm);
   static EdgeInsets get verticalMD => EdgeInsets.symmetric(vertical: md);
+  static EdgeInsets get verticalMD2 => EdgeInsets.symmetric(vertical: md2);
   static EdgeInsets get verticalLG => EdgeInsets.symmetric(vertical: lg);
   static EdgeInsets get verticalXL => EdgeInsets.symmetric(vertical: xl);
 
@@ -76,6 +80,7 @@ class AppSpaces {
   static Widget get xs => SizedBox(height: AppSpacing.xs);
   static Widget get sm => SizedBox(height: AppSpacing.sm);
   static Widget get md => SizedBox(height: AppSpacing.md);
+  static Widget get md2 => SizedBox(height: AppSpacing.md2);
   static Widget get lg => SizedBox(height: AppSpacing.lg);
   static Widget get xl => SizedBox(height: AppSpacing.xl);
   static Widget get xxl => SizedBox(height: AppSpacing.xxl);

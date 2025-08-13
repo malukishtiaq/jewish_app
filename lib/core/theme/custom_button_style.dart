@@ -30,9 +30,9 @@ class CustomButtonStyles {
         padding: EdgeInsets.zero,
       );
   static ButtonStyle get fillPurple => ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF52059F),
+        backgroundColor: const Color(0xFF8A5694),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(5),
         ),
         elevation: 0,
         padding: EdgeInsets.zero,

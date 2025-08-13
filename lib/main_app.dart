@@ -11,8 +11,9 @@ import 'core/navigation/route_generator.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 import 'export_files.dart';
 import 'core/ui/widgets/restart_widget.dart';
-import 'features/splash/presentation/screen/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'features/splash/presentation/screens/judaism_splash_screen.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -81,7 +82,9 @@ class _MainAppState extends State<MainApp> {
                 navigatorKey: getIt<NavigationService>().getNavigationKey,
                 onGenerateRoute: getIt<NavigationRoute>().generateRoute,
                 initialRoute: "/",
-                home: _isInitialized ? const SplashScreen() : const SizedBox(),
+                home: _isInitialized
+                    ? const JudaismSplashScreen()
+                    : const SizedBox(),
               );
             },
           ),

@@ -102,12 +102,15 @@ flutter:
   assets:
     - .env
     - assets/
-    - assets/camalot/
     - assets/images/
-    - assets/gif/
+    - assets/judaism/
     - assets/fonts/
     - assets/images/png/
-    - assets/images/svg/
-    - assets/images/svg/mss/
+  # fonts:
+  #   - family: Taz
+  #     fonts:
+  #       - asset: assets/fonts/Taz-Regular.ttf
+  #       - asset: assets/fonts/Taz-Bold.ttf
+  #         weight: 700
     
     

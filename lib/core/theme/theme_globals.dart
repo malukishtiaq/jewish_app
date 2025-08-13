@@ -14,6 +14,7 @@ class AppThemeColors {
   static const Color redA400 = Color(0xFFFF1744);
   static const Color redA700 = Color(0xFFD50000);
   static const Color black9003f = Color(0x3F000000);
+  static const Color dividerBlue = Color(0xFFE9EFFF);
 }
 
 // Global theme access (simplified version)

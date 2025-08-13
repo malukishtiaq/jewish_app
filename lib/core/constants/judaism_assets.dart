@@ -3,6 +3,10 @@
 ///
 /// Usage Examples:
 /// ```dart
+/// // Main branding assets
+/// Image.asset(JudaismAssets.branding.logo)
+/// Image.asset(JudaismAssets.branding.splashBackground)
+///
 /// // Volume controls
 /// Image.asset(JudaismAssets.volume.volumeUp)
 /// Image.asset(JudaismAssets.volume.volumeOff)
@@ -34,6 +38,9 @@ class JudaismAssets {
 
   /// Base asset directory for judaism assets
   static const String _judaismPath = 'assets/judaism';
+
+  /// Main branding assets (logo and splash background)
+  static final BrandingAssets branding = BrandingAssets._();
 
   /// Volume control assets
   static final VolumeAssets volume = VolumeAssets._();
@@ -116,7 +123,9 @@ class UIAssets {
   String get frame => '${JudaismAssets._judaismPath}/frame.png';
   String get rectangle312 => '${JudaismAssets._judaismPath}/rectangle_312.png';
   String get ellipse1 => '${JudaismAssets._judaismPath}/ellipse_1.png';
-}
+  String get sponsoredImage =>
+      '${JudaismAssets._judaismPath}/sponsored_image.png';
+} //assets/judaism/ellipse_1.png
 
 /// Group and layout assets
 class GroupAssets {
@@ -128,6 +137,32 @@ class GroupAssets {
   String get group2265 => '${JudaismAssets._judaismPath}/group_2265.png';
   String get group2267 => '${JudaismAssets._judaismPath}/group_2267.png';
   String get group2293 => '${JudaismAssets._judaismPath}/group_2293.png';
+}
+
+/// Main branding assets (logo and splash background)
+class BrandingAssets {
+  const BrandingAssets._();
+
+  /// Main app logo - "The What & Why of Judaism"
+  String get logo => '${JudaismAssets._judaismPath}/logo.png';
+
+  /// Splash screen background - spiritual book with emanating light
+  String get splashBackground => '${JudaismAssets._judaismPath}/splash_bg.png';
+
+  /// Splash screen vector background
+  String get splashScreenVector =>
+      '${JudaismAssets._judaismPath}/splashscreen_vector.png';
+
+  /// Login header waves (primary/secondary)
+  /// If the files 'login_top_wave_primary.png' and 'login_top_wave_secondary.png'
+  /// are not present in assets, callers should use an errorBuilder fallback.
+  String get loginTopWavePrimary =>
+      '${JudaismAssets._judaismPath}/login_top_wave_primary.png';
+  String get loginTopWaveSecondary =>
+      '${JudaismAssets._judaismPath}/login_top_wave_secondary.png';
+
+  /// Combined single wave image for the login header
+  String get loginTopWave => '${JudaismAssets._judaismPath}/login_top_wave.png';
 }
 
 /// Format and shape assets
