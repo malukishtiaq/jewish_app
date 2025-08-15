@@ -4,6 +4,8 @@ import '../../di/service_locator.dart';
 import '../../features/account/presentation/screen/login/login_screen.dart';
 import '../../features/account/presentation/screen/login/register_screen.dart';
 import '../../features/home/presentation/screen/home_screen.dart';
+import '../../features/library/library.dart';
+import '../../features/profile/presentation/screen/update_profile_screen.dart';
 import '../constants/enums/route_type.dart';
 import '../ui/screens/base_screen.dart';
 import 'animations/animated_route.dart';
@@ -83,6 +85,31 @@ class NavigationRoute {
       case HomeScreen.routeName:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
+          settings: settings,
+        );
+
+      case LibraryScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const LibraryScreen(),
+          settings: settings,
+        );
+
+      case ChapterDetailScreen.routeName:
+        final args = settings.arguments;
+        if (args is Map<String, dynamic>) {
+          return MaterialPageRoute(
+            builder: (_) => ChapterDetailScreen(
+              categoryTitle: args['categoryTitle'] ?? '',
+              chapters: args['chapters'] ?? <String>[],
+            ),
+            settings: settings,
+          );
+        }
+        return _errorRoute();
+
+      case UpdateProfileScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const UpdateProfileScreen(),
           settings: settings,
         );
 

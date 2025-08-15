@@ -1,8 +1,18 @@
 import 'package:jewish_app/core/ui/components/components.dart';
 import 'package:jewish_app/core/ui/widgets/wave_strip.dart';
+import 'package:jewish_app/features/profile/presentation/widgets/update_profile_view.dart';
+import 'package:jewish_app/features/bookmarks/bookmarks.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  bool _isEditing = false;
+  bool _showBookmarks = false;
 
   static const Color _purple = Color(0xFF8A5694);
   static const Color _orange = Color(0xFFF2A41E);
@@ -10,6 +20,33 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // If editing, show update profile view
+    if (_isEditing) {
+      return UpdateProfileView(
+        onBack: () {
+          setState(() {
+            _isEditing = false;
+          });
+        },
+      );
+    }
+
+    // If showing bookmarks, show bookmarks view
+    if (_showBookmarks) {
+      return BookmarksView(
+        onBack: () {
+          setState(() {
+            _showBookmarks = false;
+          });
+        },
+      );
+    }
+
+    // Show main profile view
+    return _buildMainProfile();
+  }
+
+  Widget _buildMainProfile() {
     return Stack(
       children: [
         // Background wave clipped to show only the bottom slice
@@ -27,7 +64,7 @@ class ProfileView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               SafeArea(
                 bottom: false,
                 child: Padding(
@@ -46,12 +83,15 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      const Text(
-                        'Edit',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 16,
-                          color: Color(0xFF6C7C89),
+                      TextButton(
+                        onPressed: () => _showEditProfile(),
+                        child: const Text(
+                          'Edit',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            color: Color(0xFF6C7C89),
+                          ),
                         ),
                       ),
                     ],
@@ -75,6 +115,12 @@ class ProfileView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _showEditProfile() {
+    setState(() {
+      _isEditing = true;
+    });
   }
 
   // wave header is handled as a background in the Stack above
@@ -107,9 +153,9 @@ class ProfileView extends StatelessWidget {
                   color: Color(0xFFEC164F),
                   shape: BoxShape.circle,
                 ),
-                child: Stack(
+                child: const Stack(
                   clipBehavior: Clip.none,
-                  children: const [
+                  children: [
                     Center(
                       child: Icon(
                         Icons.photo_camera_back_rounded,
@@ -184,6 +230,7 @@ class ProfileView extends StatelessWidget {
           label: 'Bookmarks (5)',
           trailing: null,
           trailingIcon: Icons.chevron_right,
+          onTap: () => _showBookmarksView(),
         ),
         _buildDivider(),
       ],
@@ -195,8 +242,9 @@ class ProfileView extends StatelessWidget {
     required String label,
     String? trailing,
     IconData? trailingIcon,
+    VoidCallback? onTap,
   }) {
-    return Container(
+    Widget rowContent = Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       alignment: Alignment.center,
@@ -230,8 +278,31 @@ class ProfileView extends StatelessWidget {
         ],
       ),
     );
+
+    // If onTap is provided, wrap with InkWell for tap functionality
+    if (onTap != null) {
+      return InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        splashColor: _purple.withValues(alpha: 0.1),
+        highlightColor: _purple.withValues(alpha: 0.05),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: rowContent,
+        ),
+      );
+    }
+
+    return rowContent;
   }
 
-  Widget _buildDivider() =>
-      const Divider(color: _divider, height: 1, thickness: 1);
+  Widget _buildDivider() {
+    return const Divider(color: _divider, height: 1, thickness: 1);
+  }
+
+  void _showBookmarksView() {
+    setState(() {
+      _showBookmarks = true;
+    });
+  }
 }

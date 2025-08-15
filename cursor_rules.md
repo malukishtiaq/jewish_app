@@ -178,7 +178,23 @@ Direct to Code: After instructions are given, generate the required code directl
 
 Clarification: If an instruction is ambiguous or conflicts with existing rules, ask for clarification before proceeding.
 
-8. Plugin and API Integration
+8. Asset Management
+Centralized Asset Management: All asset references must use the centralized asset management system. No hardcoded asset paths are permitted in any UI components or business logic.
+
+Asset Usage Rules:
+- All images, icons, and other assets must be referenced through the appropriate asset classes (e.g., JudaismAssets, AppAssets)
+- Never use inline asset paths like "assets/images/logo.png" directly in code
+- Import the required asset constants: import 'package:jewish_app/core/constants/judaism_assets.dart'
+- Use type-safe asset getters: JudaismAssets.ui.ellipse1, AppAssets.images.splashBackground
+- If a new asset category is needed, create a new asset class following the existing pattern
+
+Benefits:
+- Easy asset path management and updates
+- Type safety and better IDE support
+- Consistency across the codebase
+- Centralized asset organization
+
+9. Plugin and API Integration
 API Abstraction: All API definitions and network calls must be handled within the data layer of a feature. The UI should never call an API directly.
 
 Plugin Abstraction: When a new third-party plugin is introduced, it must be wrapped in an abstract service class within the lib/core/ or feature-specific data layer. The rest of the application will interact with this custom service, not the plugin directly. This ensures that if the plugin is ever replaced, the changes are isolated to a single location.

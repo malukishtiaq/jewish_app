@@ -280,11 +280,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         hintStyle:
             widget.hintStyle ?? CustomTextStyles.bodyMediumOnPrimary(context),
         prefixIcon: widget.prefix,
-        prefixIconConstraints: widget.prefixConstraints,
+        prefixIconConstraints:
+            widget.prefix != null ? widget.prefixConstraints : null,
         suffixIcon: widget.suffix,
         suffixIconConstraints: widget.suffixConstraints,
-        contentPadding: widget.contentPadding ??
-            EdgeInsets.symmetric(horizontal: 16.h, vertical: 20.h),
+        contentPadding: _getContentPadding(),
         fillColor: widget.fillColor,
         filled: widget.filled,
         border: widget.borderDecoration ??
@@ -332,4 +332,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         errorMaxLines: 1,
       );
+
+  EdgeInsets _getContentPadding() {
+    if (widget.contentPadding != null) {
+      return widget.contentPadding!;
+    }
+
+    // If no prefix icon, use minimal left padding
+    if (widget.prefix == null) {
+      return EdgeInsets.only(
+        left: 8.h, // Much smaller left padding when no prefix
+        right: 16.h,
+        top: 20.h,
+        bottom: 20.h,
+      );
+    }
+
+    // Default padding when prefix icon is present
+    return EdgeInsets.symmetric(horizontal: 16.h, vertical: 20.h);
+  }
 }

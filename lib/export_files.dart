@@ -12,3 +12,6 @@ export 'core/navigation/nav.dart';
 export 'core/common/utils/size_utils.dart';
 export 'core/ui/widgets/custom_elevated_button.dart';
 export 'core/ui/widgets/custom_switch.dart';
+export 'features/library/library.dart';
+export 'features/profile/profile.dart';
+export 'features/bookmarks/bookmarks.dart';

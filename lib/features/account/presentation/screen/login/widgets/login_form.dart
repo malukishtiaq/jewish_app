@@ -42,12 +42,12 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           10.verticalSpace,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 13),
             child: Text(
               "The Alan and Mindy Peyser in honor of Paul Peyser - Pinchas ben David a'h",
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Color(0xFF6C7C89),
                 fontSize: 12,
                 fontFamily: 'Inter',
@@ -202,18 +202,18 @@ class LoginForm extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AppBody.medium(
+        const AppBody.medium(
           "Don't Have an Account?",
-          color: const Color(0xFF252525),
+          color: Color(0xFF252525),
         ),
         AppSpaces.hSM,
         GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, RegisterScreen.routeName);
           },
-          child: AppBody.large(
+          child: const AppBody.large(
             'Sign Up',
-            color: const Color(0xFFEC164F),
+            color: Color(0xFFEC164F),
           ),
         ),
       ],
