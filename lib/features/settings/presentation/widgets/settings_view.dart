@@ -63,7 +63,7 @@ class _SettingsViewState extends State<SettingsView> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const _SectionHeader(title: 'ACCOUNT'),
-                        _LinedRow(
+                        const _LinedRow(
                           label: 'Email',
                           trailingText: 'johnpaul@myemail.com',
                           boldTrailing: false,
@@ -75,16 +75,17 @@ class _SettingsViewState extends State<SettingsView> {
                           value: darkMode,
                           onChanged: (v) => setState(() => darkMode = v),
                         ),
-                        _LinedRow(
+                        const _LinedRow(
                             label: 'Start Date', trailingText: '05/05/2022'),
-                        _LinedRow(
+                        const _LinedRow(
                             label: 'Chapter',
                             trailingText: 'Chapter 1 - Washing hands'),
-                        _LinedRow(label: 'Cycle Type', trailingText: '7 Days'),
-                        _LinedRow(
+                        const _LinedRow(
+                            label: 'Cycle Type', trailingText: '7 Days'),
+                        const _LinedRow(
                             label: 'Turn Notification',
                             trailingText: 'Turn Notification'),
-                        _LinedRow(
+                        const _LinedRow(
                             label: 'Select Time', trailingText: '09:00 AM'),
                         const _SectionHeader(title: 'INFORMATION'),
                         const _ChevronRow(

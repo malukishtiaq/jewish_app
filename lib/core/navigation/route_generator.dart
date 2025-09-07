@@ -4,6 +4,7 @@ import '../../di/service_locator.dart';
 import '../../features/account/presentation/screen/login/login_screen.dart';
 import '../../features/account/presentation/screen/login/register_screen.dart';
 import '../../features/home/presentation/screen/home_screen.dart';
+import '../../features/home/presentation/screen/main_navigation_screen.dart';
 import '../../features/library/library.dart';
 import '../../features/profile/presentation/screen/update_profile_screen.dart';
 import '../constants/enums/route_type.dart';
@@ -84,7 +85,13 @@ class NavigationRoute {
 
       case HomeScreen.routeName:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const MainNavigationScreen(),
+          settings: settings,
+        );
+
+      case MainNavigationScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const MainNavigationScreen(),
           settings: settings,
         );
 

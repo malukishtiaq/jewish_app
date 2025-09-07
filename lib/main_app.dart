@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:jewish_app/di/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
@@ -53,7 +54,36 @@ class _MainAppState extends State<MainApp> {
           distance: 15,
           height: 20,
         ),
-        child: altaSizer(),
+        child: kIsWeb ? _buildWebApp() : altaSizer(),
+      ),
+    );
+  }
+
+  Widget _buildWebApp() {
+    return BlocProvider(
+      create: (context) => ThemeBloc(ThemeState(themeType: "light")),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: AppConstants.titleAppName,
+            theme: AppTheme.lightThemeData,
+            darkTheme: AppTheme.darkThemeData,
+            themeMode: ThemeMode.light,
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AltaLocalizationDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('en', '')],
+            navigatorKey: getIt<NavigationService>().getNavigationKey,
+            onGenerateRoute: getIt<NavigationRoute>().generateRoute,
+            initialRoute: "/",
+            home:
+                _isInitialized ? const JudaismSplashScreen() : const SizedBox(),
+          );
+        },
       ),
     );
   }
