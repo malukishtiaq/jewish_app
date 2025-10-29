@@ -71,13 +71,9 @@ dependencies:
   encrypt: ^5.0.3
   barcode_widget: ^2.0.4
   country_pickers: ^3.0.1
-  camera: ^0.11.0+2
-  gal: ^2.3.1
   photo_manager: ^3.6.4
   photo_manager_image_provider: ^2.2.0
-  video_player: ^2.9.5
   path: ^1.8.3
-  camerawesome: ^2.3.0
   share_plus: ^11.0.0
 
 dev_dependencies:
@@ -103,6 +99,7 @@ flutter:
     - .env
     - assets/
     - assets/images/
+    - assets/images/svg/
     - assets/judaism/
     - assets/fonts/
     - assets/images/png/

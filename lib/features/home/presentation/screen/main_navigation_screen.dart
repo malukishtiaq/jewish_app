@@ -8,7 +8,7 @@ import 'package:jewish_app/features/profile/presentation/widgets/profile_view.da
 /// When users navigate to '/home', they get this complete experience
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = '/main';
-  
+
   const MainNavigationScreen({super.key});
 
   @override
@@ -17,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
-  
+
   final List<Widget> _screens = [
     const HomeScreen(),
     const LibraryScreen(),
@@ -49,21 +49,23 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildNavItem(Icons.home, 'Home', 0),
-          _buildNavItem(Icons.library_books, 'Library', 1),
-          _buildNavItem(Icons.settings, 'Settings', 2),
-          _buildNavItem(Icons.person, 'Profile', 3),
-        ],
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(Icons.home, 'Home', 0),
+            _buildNavItem(Icons.library_books, 'Library', 1),
+            _buildNavItem(Icons.settings, 'Settings', 2),
+            _buildNavItem(Icons.person, 'Profile', 3),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildNavItem(IconData icon, String label, int index) {
     final isActive = _currentIndex == index;
-    
+
     return GestureDetector(
       onTap: () {
         setState(() {
