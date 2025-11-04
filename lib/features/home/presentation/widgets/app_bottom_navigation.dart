@@ -18,9 +18,9 @@ class AppBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 65,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: _barColor,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             color: Color(0x14000000),
             blurRadius: 8,

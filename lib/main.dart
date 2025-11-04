@@ -27,7 +27,7 @@ void main() async {
 }
 
 Future<void> _initAppConfigs() async {
-  await dotenv.load();
+  await dotenv.load(fileName: 'assets/env/dev.env');
   await LocalStorage.init();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);

@@ -7,16 +7,15 @@ plugins {
 
 android {
     namespace = "com.camalot.solution"
-    compileSdk = 35
-    ndkVersion = "27.0.12077973"
+    compileSdk = 36
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
@@ -27,21 +26,11 @@ android {
         versionName = flutter.versionName
     }
 
-    signingConfigs {
-        getByName("debug") {
-            keyAlias = "camalot"
-            storePassword = "camalot"
-            storeFile = file("keystore/camalot.jks")
-            keyPassword = "camalot"
-        }
-    }
-
-
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // signingConfig = signingConfigs.getByName("debug")
         }
     }
 }
