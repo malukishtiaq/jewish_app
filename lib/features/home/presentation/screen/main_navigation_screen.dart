@@ -32,13 +32,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         index: _currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }
 
-  Widget _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar(BuildContext context) {
     return Container(
-      height: 83,
       decoration: const BoxDecoration(
         color: Color(0xFF8A5694),
         boxShadow: [
@@ -50,14 +49,18 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       child: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(Icons.home, 'Home', 0),
-            _buildNavItem(Icons.library_books, 'Library', 1),
-            _buildNavItem(Icons.settings, 'Settings', 2),
-            _buildNavItem(Icons.person, 'Profile', 3),
-          ],
+        top: false,
+        child: Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: Row(
+            children: [
+              _buildNavItem(Icons.home, 'Home', 0),
+              _buildNavItem(Icons.library_books, 'Library', 1),
+              _buildNavItem(Icons.settings, 'Settings', 2),
+              _buildNavItem(Icons.person, 'Profile', 3),
+            ],
+          ),
         ),
       ),
     );
@@ -66,30 +69,37 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget _buildNavItem(IconData icon, String label, int index) {
     final isActive = _currentIndex == index;
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: isActive ? const Color(0xFFF2A41E) : Colors.white,
-            size: 24,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
+    return Expanded(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
               color: isActive ? const Color(0xFFF2A41E) : Colors.white,
-              fontSize: 10,
-              fontFamily: 'Inter',
+              size: 24,
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: isActive ? const Color(0xFFF2A41E) : Colors.white,
+                fontSize: 10,
+                fontFamily: 'Inter',
+                height: 1.0,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

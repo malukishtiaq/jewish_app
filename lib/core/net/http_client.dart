@@ -41,7 +41,7 @@ class HttpClient {
     _client = Dio(options);
 
     /// For logger
-    if (AppConfig().appOptions.enableDioPrinting) {
+    if (AppConfig().appOptions.enableDioPrinting || true) {
       _client.interceptors.add(
         PrettyDioLogger(
           requestBody: true,

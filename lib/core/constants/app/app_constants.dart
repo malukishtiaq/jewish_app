@@ -268,7 +268,7 @@ class AppConstants {
   static const mbSize = 1024 * kb;
 
   static const header = <String, String>{
-    "AppName": "DbCamalot",
+    "AppName": "DbTanach",
     "Authorization": "Bearer 14FE34B2-9547-43F5-A57C-F0DC7DE81AA9"
   };
 

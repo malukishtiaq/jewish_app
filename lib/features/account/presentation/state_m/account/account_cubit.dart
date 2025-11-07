@@ -18,7 +18,7 @@ import '../../../../../di/service_locator.dart';
 import '../../../data/request/param/delete_account_param.dart';
 import '../../../data/request/param/login_param.dart';
 import '../../../data/request/param/resgister_param.dart';
-import '../../../data/request/param/verify_otp_param.dart';
+import '../../../data/request/param/validate_otp_param.dart';
 import '../../../data/request/param/send_email_verification_param.dart';
 import '../../../data/request/param/validate_email_verification_param.dart';
 import '../../../domain/entity/member_info_entity.dart';
@@ -42,6 +42,8 @@ class AccountCubit extends Cubit<AccountState> {
       : super(const AccountState.accountInit()) {
     usernameController.text =
         kDebugMode ? dotenv.env['LOGIN_USERNAME'] ?? '' : '';
+    passwordController.text =
+        kDebugMode ? dotenv.env['LOGIN_PASSWORD'] ?? '' : '';
     profilePictureUrl = APIUrls.getCoverImage(
       getIt<SessionData>().user?.avatarUrl ?? "",
     );
@@ -125,6 +127,15 @@ class AccountCubit extends Cubit<AccountState> {
 
     result.pick(
       onData: (data) async {
+        // Save member ID to local storage
+        await _saveMemberId(data.id);
+        
+        // Set skipLogin to true so user stays logged in
+        await LocalStorage.persistSkipLogin(true);
+
+        // Store basic session info (we'll fetch full profile later if needed)
+        // For now, just ensure the ID is persisted
+
         isLoading = false;
         emit(AccountState.userLoginSuccess(param.email ?? ""));
       },
@@ -141,26 +152,9 @@ class AccountCubit extends Cubit<AccountState> {
 
     result.pick(
       onData: (data) async {
-        // Set session data after successful registration
-        getIt<SessionData>().user = data;
-        await saveTokenAndRestart(data);
-
-        // Send email verification OTP
-        final emailVerificationResult =
-            await getIt<SendEmailVerificationUsecase>()(
-          SendEmailVerificationParam(membersId: data.id),
-        );
-
-        emailVerificationResult.pick(
-          onData: (emailVerificationData) {
-            // Email verification OTP sent successfully
-            emit(AccountState.userRegisteredSuccess(data.copyWith(otp: "")));
-          },
-          onError: (error) {
-            // Even if email verification fails, we still show success but with error
-            emit(AccountState.userRegisteredSuccess(data.copyWith(otp: "")));
-          },
-        );
+        // Registration successful - just emit success and navigate to login
+        // Don't save token or restart app for registration
+        emit(AccountState.userRegisteredSuccess(data.copyWith(otp: "")));
       },
       onError: (error) {
         emit(AccountState.registerError(error, () => resgister(param), param));
@@ -187,7 +181,7 @@ class AccountCubit extends Cubit<AccountState> {
 
     result.pick(
       onData: (data) {
-        completer.complete(data.otp);
+        completer.complete(data.oneTimePassword);
       },
       onError: (error) {
         completer.complete(""); // Return empty string on error
@@ -240,9 +234,9 @@ class AccountCubit extends Cubit<AccountState> {
         emit(
           AccountState.codeResentSuccess(
             SendOtpEntity(
-              otp: "",
-              type: VerificationType.email,
-              id: getIt<SessionData>().user?.id ?? 0,
+              isExists: true,
+              membersId: getIt<SessionData>().user?.id ?? 0,
+              oneTimePassword: "",
             ),
           ),
         );
@@ -253,7 +247,7 @@ class AccountCubit extends Cubit<AccountState> {
     );
   }
 
-  void verifyOtp(VerifyOtpParam param) async {
+  void verifyOtp(ValidateOtpParam param) async {
     emit(const AccountState.accountLoading());
 
     final result = await getIt<VerifyOtpUsecase>()(param);

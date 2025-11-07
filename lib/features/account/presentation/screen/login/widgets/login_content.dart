@@ -1,7 +1,6 @@
 import 'package:jewish_app/core/ui/components/components.dart';
 // import 'package:jewish_app/core/constants/app_assets.dart';
 import 'package:jewish_app/export_files.dart';
-import 'package:jewish_app/features/account/presentation/state_m/account/account_cubit.dart';
 import 'login_form.dart';
 import 'login_header.dart';
 
@@ -14,25 +13,22 @@ class LoginContent extends StatelessWidget {
       backgroundColor: context.colorScheme.onPrimary,
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        child: Form(
-          key: context.read<AccountCubit>().formKey,
-          child: Container(
-            width: double.infinity,
-            child: Column(
-              children: [
-                const LoginHeader(),
-                Text(
-                  'Welcome Back!',
-                  style: CustomTextStyles.welcomeBackTaz(context),
-                  textAlign: TextAlign.center,
-                ),
-                AppSpaces.md2,
-                const LoginForm(),
-                AppSpaces.md2,
-                _SponsorSection(),
-                SizedBox(height: AppSpacing.xl),
-              ],
-            ),
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              const LoginHeader(),
+              Text(
+                'Welcome Back!',
+                style: CustomTextStyles.welcomeBackTaz(context),
+                textAlign: TextAlign.center,
+              ),
+              AppSpaces.md2,
+              const LoginForm(),
+              AppSpaces.md2,
+              _SponsorSection(),
+              SizedBox(height: AppSpacing.xl),
+            ],
           ),
         ),
       ),

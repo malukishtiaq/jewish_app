@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jewish_app/core/common/utils/utils.dart';
 import 'package:jewish_app/core/ui/components/components.dart';
 import 'package:jewish_app/core/ui/widgets/wave_strip.dart';
 import 'package:jewish_app/core/theme/theme_globals.dart';
@@ -16,6 +17,66 @@ class _SettingsViewState extends State<SettingsView> {
   static const Color orange = AppThemeColors.brandOrange;
 
   bool darkMode = false;
+
+  void _handleLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text(
+            'Log Out',
+            style: TextStyle(
+              fontFamily: 'Taz',
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF8A5694),
+            ),
+          ),
+          content: const Text(
+            'Are you sure you want to log out?',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              color: Color(0xFF62606E),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  fontFamily: 'Taz',
+                  fontSize: 14,
+                  color: Color(0xFF6C7C89),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF8A5694),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                Utils.logout();
+              },
+              child: const Text(
+                'Log Out',
+                style: TextStyle(
+                  fontFamily: 'Taz',
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +149,11 @@ class _SettingsViewState extends State<SettingsView> {
                         const _LinedRow(
                             label: 'Select Time', trailingText: '09:00 AM'),
                         const _SectionHeader(title: 'INFORMATION'),
-                        const _ChevronRow(
-                            label: 'Log out', rightIcon: Icons.logout_outlined),
+                        _ChevronRow(
+                          label: 'Log out',
+                          rightIcon: Icons.logout_outlined,
+                          onTap: () => _handleLogout(context),
+                        ),
                         24.verticalSpace,
                       ],
                     ),
@@ -149,8 +213,8 @@ class _LinedRow extends StatelessWidget {
               Text(
                 label,
                 style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 18,
+                  fontFamily: 'Taz',
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF8A5694),
                 ),
@@ -161,7 +225,7 @@ class _LinedRow extends StatelessWidget {
                   trailingText!,
                   style: TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 18,
+                    fontSize: 14,
                     fontWeight:
                         boldTrailing ? FontWeight.w700 : FontWeight.w500,
                     color: const Color(0xFF6C7C89),
@@ -181,29 +245,37 @@ class _LinedRow extends StatelessWidget {
 class _ChevronRow extends StatelessWidget {
   final String label;
   final IconData? rightIcon;
-  const _ChevronRow({required this.label, this.rightIcon});
+  final VoidCallback? onTap;
+  const _ChevronRow({
+    required this.label,
+    this.rightIcon,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 56,
-          child: Row(
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF8A5694),
+        InkWell(
+          onTap: onTap,
+          child: SizedBox(
+            height: 56,
+            child: Row(
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontFamily: 'Taz',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF8A5694),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              Icon(rightIcon ?? Icons.chevron_right,
-                  color: const Color(0xFF6C7C89)),
-            ],
+                const Spacer(),
+                Icon(rightIcon ?? Icons.chevron_right,
+                    color: const Color(0xFF6C7C89)),
+              ],
+            ),
           ),
         ),
         const Divider(
@@ -231,8 +303,8 @@ class _SwitchRow extends StatelessWidget {
               Text(
                 label,
                 style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 18,
+                  fontFamily: 'Taz',
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF8A5694),
                 ),

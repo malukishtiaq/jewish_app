@@ -5,6 +5,7 @@ import 'package:jewish_app/export_files.dart';
 import 'package:jewish_app/core/ui/widgets/custom_text_form_field.dart';
 import 'package:jewish_app/features/account/presentation/screen/login/register_screen.dart';
 import 'package:jewish_app/features/home/presentation/screen/home_screen.dart';
+import 'package:jewish_app/features/account/data/request/param/login_param.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -13,49 +14,52 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AccountCubit>();
 
-    return Container(
-      constraints: const BoxConstraints(minWidth: 343, maxWidth: 500),
-      padding: AppSpacing.horizontalLG,
-      child: Column(
-        children: [
-          _buildEmailInput(context, cubit),
-          AppSpaces.md,
-          _buildPasswordInput(context, cubit),
-          AppSpaces.lg,
-          _buildLoginButton(context, cubit),
-          AppSpaces.md2,
-          Text(
-            'Forgot Password?',
-            textAlign: TextAlign.center,
-            style: CustomTextStyles.forgotPasswordLink(context),
-          ),
-          AppSpaces.sm,
-          _buildSocialLoginSection(context),
-          AppSpaces.sm,
-          _buildSignUpSection(context),
-          Center(
-            child: CustomImageView(
-              width: 238,
-              height: 100,
-              imagePath: JudaismAssets.ui.sponsoredImage,
-              fit: BoxFit.contain,
-            ),
-          ),
-          10.verticalSpace,
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 13),
-            child: Text(
-              "The Alan and Mindy Peyser in honor of Paul Peyser - Pinchas ben David a'h",
+    return Form(
+      key: cubit.formKey,
+      child: Container(
+        constraints: const BoxConstraints(minWidth: 343, maxWidth: 500),
+        padding: AppSpacing.horizontalLG,
+        child: Column(
+          children: [
+            _buildEmailInput(context, cubit),
+            AppSpaces.md,
+            _buildPasswordInput(context, cubit),
+            AppSpaces.lg,
+            _buildLoginButton(context, cubit),
+            AppSpaces.md2,
+            Text(
+              'Forgot Password?',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF6C7C89),
-                fontSize: 12,
-                fontFamily: 'Inter',
-                height: 1,
+              style: CustomTextStyles.forgotPasswordLink(context),
+            ),
+            AppSpaces.sm,
+            _buildSocialLoginSection(context),
+            AppSpaces.sm,
+            _buildSignUpSection(context),
+            Center(
+              child: CustomImageView(
+                width: 238,
+                height: 100,
+                imagePath: JudaismAssets.ui.sponsoredImage,
+                fit: BoxFit.contain,
               ),
             ),
-          ),
-        ],
+            10.verticalSpace,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13),
+              child: Text(
+                "The Alan and Mindy Peyser in honor of Paul Peyser - Pinchas ben David a'h",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF6C7C89),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  height: 1,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -129,38 +133,119 @@ class LoginForm extends StatelessWidget {
   }
 
   Widget _buildLoginButton(BuildContext context, AccountCubit cubit) {
-    return Container(
-      width: 304,
-      height: 44,
-      margin: AppSpacing.horizontalXL,
-      decoration: ShapeDecoration(
-        color: const Color(0xFF8A5694),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        shadows: const [
-          BoxShadow(
-            color: Color(0xFF74C6C4),
-            blurRadius: 8,
-            offset: Offset(0, 2),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: () {
-          // For now, navigate to home to mimic success flow
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            HomeScreen.routeName,
-            (route) => false,
-          );
-        },
-        style: CustomButtonStyles.fillPurple,
-        child: Text(
-          'Sign In',
-          textAlign: TextAlign.center,
-          style: CustomTextStyles.buttonSignIn(context),
-        ),
-      ),
+    return BlocConsumer<AccountCubit, AccountState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          userLoginSuccess: (email) {
+            // Navigate to home on successful login
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              HomeScreen.routeName,
+              (route) => false,
+            );
+          },
+          accountError: (error, retry) {
+            // Show error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(error.message ?? 'Login failed'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          orElse: () {},
+        );
+      },
+      builder: (context, state) {
+        final isLoading = state.maybeWhen(
+          accountLoading: () => true,
+          orElse: () => false,
+        );
+
+        return Container(
+          width: 304,
+          height: 44,
+          margin: AppSpacing.horizontalXL,
+          decoration: ShapeDecoration(
+            color: const Color(0xFF8A5694),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            shadows: const [
+              BoxShadow(
+                color: Color(0xFF74C6C4),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+                spreadRadius: 0,
+              )
+            ],
+          ),
+          child: ElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () {
+                    if (cubit.formKey.currentState?.validate() ?? false) {
+                      // Call login API
+                      cubit.login(
+                        LoginParam(
+                          email: cubit.usernameController.text.trim(),
+                          password: cubit.passwordController.text,
+                        ),
+                      );
+                    }
+                  },
+            style: CustomButtonStyles.fillPurple,
+            child: isLoading
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // White circular background for logo
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 6,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Logo overlay
+                      ClipOval(
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          color: Colors.white,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/judaism/logo.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      // Circular progress indicator around the logo
+                      const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      ),
+                    ],
+                  )
+                : Text(
+                    'Sign In',
+                    textAlign: TextAlign.center,
+                    style: CustomTextStyles.buttonSignIn(context),
+                  ),
+          ),
+        );
+      },
     );
   }
 

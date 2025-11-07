@@ -78,7 +78,8 @@ class _ProfileViewState extends State<ProfileView> {
                         'Profile',
                         style: TextStyle(
                           fontFamily: 'Taz',
-                          fontSize: 24,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w600,
                           color: _purple,
                         ),
                       ),
@@ -89,7 +90,8 @@ class _ProfileViewState extends State<ProfileView> {
                           'Edit',
                           style: TextStyle(
                             fontFamily: 'Inter',
-                            fontSize: 16,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                             color: Color(0xFF6C7C89),
                           ),
                         ),
@@ -256,9 +258,9 @@ class _ProfileViewState extends State<ProfileView> {
             child: Text(
               label,
               style: const TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontFamily: 'Taz',
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
                 color: _purple,
               ),
             ),
@@ -268,7 +270,7 @@ class _ProfileViewState extends State<ProfileView> {
               trailing,
               style: const TextStyle(
                 fontFamily: 'Inter',
-                fontSize: 18,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: Color(0xFF252525),
               ),

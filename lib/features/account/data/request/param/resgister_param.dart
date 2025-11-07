@@ -2,8 +2,7 @@
 import '../../../../../core/params/base_params.dart';
 
 class ResgisterParam extends BaseParams {
-  final String firstName;
-  final String lastName;
+  final String name;
   final String email;
   final String phoneNo;
   final String phoneCountryCode;
@@ -17,8 +16,7 @@ class ResgisterParam extends BaseParams {
   final String country;
 
   ResgisterParam({
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     required this.email,
     required this.phoneNo,
     required this.phoneCountryCode,
@@ -34,9 +32,9 @@ class ResgisterParam extends BaseParams {
 
   @override
   Map<String, dynamic> toMap() => {
+        "AppName": "DbTanach",
         "Email": email,
-        "FirstName": firstName,
-        "LastName": lastName,
+        "Name": name,
         "Password": password,
         "SocialFacebookId": socialFacebookId,
         "SocialFacebookToken": socialFacebookToken,
@@ -50,8 +48,7 @@ class ResgisterParam extends BaseParams {
       };
 
   ResgisterParam copyWith({
-    String? firstName,
-    String? lastName,
+    String? name,
     String? email,
     String? phoneNo,
     String? phoneCountryCode,
@@ -65,8 +62,7 @@ class ResgisterParam extends BaseParams {
     String? country,
   }) {
     return ResgisterParam(
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
+      name: name ?? this.name,
       email: email ?? this.email,
       phoneNo: phoneNo ?? this.phoneNo,
       phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,

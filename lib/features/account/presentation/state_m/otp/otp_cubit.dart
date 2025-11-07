@@ -12,7 +12,7 @@ import '../../../../../core/ui/error_ui/error_viewer/error_viewer.dart';
 import '../../../../../di/service_locator.dart';
 import '../../../data/request/param/member_get_param.dart';
 import '../../../data/request/param/resend_code_param.dart';
-import '../../../data/request/param/verify_otp_param.dart';
+import '../../../data/request/param/validate_otp_param.dart';
 import '../../../data/request/param/send_email_verification_param.dart';
 import '../../../data/request/param/validate_email_verification_param.dart';
 import '../../../domain/entity/send_otp_entity.dart';
@@ -47,9 +47,9 @@ class OtpCubit extends Cubit<OtpState> {
             emit(
               OtpState.codeResentSuccess(
                 SendOtpEntity(
-                  otp: "",
-                  type: type,
-                  id: getIt<SessionData>().user?.id ?? 0,
+                  isExists: true,
+                  membersId: getIt<SessionData>().user?.id ?? 0,
+                  oneTimePassword: "",
                 ),
               ),
             );
@@ -165,17 +165,9 @@ class OtpCubit extends Cubit<OtpState> {
     } else {
       // Use existing phone verification API
       final result = await getIt<VerifyOtpUsecase>()(
-        VerifyOtpParam(
-          code: text,
-          phoneCountryCode: type == VerificationType.phone
-              ? getIt<SessionData>().user?.phoneCountryCode
-              : null,
-          phoneNo: type == VerificationType.phone
-              ? getIt<SessionData>().user?.phoneNo
-              : null,
-          email: type == VerificationType.email
-              ? getIt<SessionData>().user?.email
-              : null,
+        ValidateOtpParam(
+          id: getIt<SessionData>().user?.id ?? 0,
+          otp: text,
         ),
       );
 
@@ -226,7 +218,10 @@ class OtpCubit extends Cubit<OtpState> {
     emit(const OtpState.optLoading());
 
     final result = await getIt<VerifyOtpOnLoginUsecase>()(
-      VerifyOtpParam(code: text, email: email),
+      ValidateOtpParam(
+        id: getIt<SessionData>().user?.id ?? 0,
+        otp: text,
+      ),
     );
 
     result.pick(
@@ -285,9 +280,9 @@ class OtpCubit extends Cubit<OtpState> {
           emit(
             OtpState.optRequestSuccess(
               SendOtpEntity(
-                otp: "",
-                type: type,
-                id: getIt<SessionData>().user?.id ?? 0,
+                isExists: true,
+                membersId: getIt<SessionData>().user?.id ?? 0,
+                oneTimePassword: "",
               ),
             ),
           );
@@ -317,9 +312,9 @@ class OtpCubit extends Cubit<OtpState> {
           emit(
             OtpState.optRequestSuccess(
               SendOtpEntity(
-                otp: "",
-                type: type,
-                id: getIt<SessionData>().user?.id ?? 0,
+                isExists: true,
+                membersId: getIt<SessionData>().user?.id ?? 0,
+                oneTimePassword: "",
               ),
             ),
           );

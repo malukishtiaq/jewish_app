@@ -1,49 +1,45 @@
 import 'package:jewish_app/core/entities/base_entity.dart';
-import 'package:jewish_app/core/constants/enums/verification_type.dart';
 
 class SendOtpEntity extends BaseEntity {
-  final String otp;
-  final int id;
-  final VerificationType type;
-  final String email;
+  final bool isExists;
+  final int membersId;
+  final String oneTimePassword;
+
   SendOtpEntity({
-    required this.otp,
-    required this.id,
-    this.type = VerificationType.phone,
-    this.email = "",
+    required this.isExists,
+    required this.membersId,
+    required this.oneTimePassword,
   });
 
   @override
   bool operator ==(covariant SendOtpEntity other) {
     if (identical(this, other)) return true;
 
-    return other.otp == otp &&
-        other.type == type &&
-        other.email == email &&
-        other.id == id;
+    return other.isExists == isExists &&
+        other.membersId == membersId &&
+        other.oneTimePassword == oneTimePassword;
   }
 
   @override
   int get hashCode =>
-      otp.hashCode ^ type.hashCode ^ email.hashCode ^ id.hashCode;
+      isExists.hashCode ^ membersId.hashCode ^ oneTimePassword.hashCode;
 
   @override
-  List<Object?> get props => [otp, type, email];
+  List<Object?> get props => [isExists, membersId, oneTimePassword];
 
   SendOtpEntity copyWith({
-    String? otp,
-    int? id,
-    VerificationType? type,
-    String? email,
+    bool? isExists,
+    int? membersId,
+    String? oneTimePassword,
   }) {
     return SendOtpEntity(
-      otp: otp ?? this.otp,
-      id: id ?? this.id,
-      type: type ?? this.type,
-      email: email ?? this.email,
+      isExists: isExists ?? this.isExists,
+      membersId: membersId ?? this.membersId,
+      oneTimePassword: oneTimePassword ?? this.oneTimePassword,
     );
   }
 
   @override
-  String toString() => 'SendOtpEntity(otp: $otp, type: $type, email: $email)';
+  String toString() =>
+      'SendOtpEntity(isExists: $isExists, membersId: $membersId, oneTimePassword: $oneTimePassword)';
 }
